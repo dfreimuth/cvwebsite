@@ -1,0 +1,50 @@
+{
+  "name": "darren-freimuth-portfolio",
+  "version": "1.0.0",
+  "description": "Modern portfolio website for Darren Freimuth",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=8000 --open=index.html",
+    "build": "echo 'Static website - no build step required'",
+    "test": "echo 'Running tests...' && npm run test:html && npm run test:css && npm run test:js",
+    "test:html": "html-validate index.html pages/*.html",
+    "test:css": "stylelint css/**/*.css",
+    "test:js": "eslint js/**/*.js",
+    "lint": "npm run test",
+    "deploy": "powershell -ExecutionPolicy Bypass -File deploy.ps1",
+    "serve": "live-server --port=8000"
+  },
+  "keywords": [
+    "portfolio",
+    "website",
+    "azure",
+    "static",
+    "responsive",
+    "professional"
+  ],
+  "author": "Darren Freimuth <darren@freimuth.name>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "html-validate": "^8.0.0",
+    "live-server": "^1.2.2",
+    "stylelint": "^15.0.0",
+    "stylelint-config-standard": "^34.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darrenfreimuth/portfolio"
+  },
+  "homepage": "https://darren.freimuth.name",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "dependencies": {
+    "react-vertical-timeline-component": "^3.5.3"
+  }
+}
