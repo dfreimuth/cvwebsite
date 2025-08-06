@@ -7,7 +7,7 @@
     "start": "live-server --port=8000 --open=index.html",
     "build": "echo 'Static website - no build step required'",
     "test": "echo 'Running tests...' && npm run test:html && npm run test:css && npm run test:js",
-    "test:html": "html-validate index.html pages/*.html",
+    "test:html": "html-validate --config .htmlvalidate.json ./index.html ./pages/*.html",
     "test:css": "stylelint css/**/*.css",
     "test:js": "eslint js/**/*.js",
     "lint": "npm run test",
