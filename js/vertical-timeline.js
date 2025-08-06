@@ -81,7 +81,7 @@ class StaggeredTimeline {
     }
 
     createTimelineItem(item, index) {
-        const yPosition = index * 300; // Stagger items vertically
+        const yPosition = index * 220; // Reduced spacing between items
         
         return `
             <div class="timeline-entry ${item.side}" style="top: ${yPosition}px;">
