@@ -1,8 +1,5 @@
-// Enhanced Vertical Timeline Component
-// This creates a vertical timeline with staggered positioning exactly as requested:
-// - First item on top left
-// - Next timeline marker starts halfway down the previous textbox
-// - Alternating left and right sides
+// Clean Timeline Implementation - Rebuilt from scratch
+// Creates a vertical timeline with perfect center alignment and staggered positioning
 
 class StaggeredTimeline {
     constructor(containerId) {
@@ -10,7 +7,7 @@ class StaggeredTimeline {
         this.data = [
             {
                 id: 1,
-                position: 'left',
+                side: 'left',
                 date: 'December 2020 - Current',
                 title: 'Solutions Architect, DCAI',
                 company: 'Intel Corp',
@@ -23,7 +20,7 @@ class StaggeredTimeline {
             },
             {
                 id: 2,
-                position: 'right',
+                side: 'right',
                 date: 'April 2018 - November 2020',
                 title: 'Enterprise Platform Architect',
                 company: 'Intel Corp',
@@ -36,7 +33,7 @@ class StaggeredTimeline {
             },
             {
                 id: 3,
-                position: 'left',
+                side: 'left',
                 date: 'October 2010 - April 2018',
                 title: 'Lead Infrastructure Architect',
                 company: 'Intel Corp',
@@ -49,7 +46,7 @@ class StaggeredTimeline {
             },
             {
                 id: 4,
-                position: 'right',
+                side: 'right',
                 date: 'June 2005 - October 2010',
                 title: 'Staff Software Engineer, Digital Health Group',
                 company: 'Intel Corp',
@@ -69,77 +66,66 @@ class StaggeredTimeline {
             console.error('Timeline container not found');
             return;
         }
-
         this.render();
-        this.addEventListeners();
+        this.setupInteractions();
     }
 
     render() {
-        const timelineHTML = `
-            <div class="staggered-timeline">
-                <div class="timeline-line"></div>
+        // Create the main timeline structure
+        this.container.innerHTML = `
+            <div class="timeline-wrapper">
+                <div class="timeline-center-line"></div>
                 ${this.data.map((item, index) => this.createTimelineItem(item, index)).join('')}
             </div>
         `;
-        
-        this.container.innerHTML = timelineHTML;
     }
 
     createTimelineItem(item, index) {
-        const offsetTop = index * 280; // Further increased spacing: stagger each item by 280px for optimal vertical space
+        const yPosition = index * 300; // Stagger items vertically
         
         return `
-            <div class="timeline-item timeline-item-${item.position}" 
-                 style="top: ${offsetTop}px;" 
-                 data-index="${index}">
-                <div class="timeline-marker">
-                    <div class="timeline-marker-inner"></div>
-                </div>
-                <div class="timeline-content">
-                    <div class="timeline-date">${item.date}</div>
-                    <h3 class="timeline-title">${item.title}</h3>
-                    <h4 class="timeline-company">${item.company}</h4>
-                    <ul class="timeline-responsibilities">
-                        ${item.responsibilities.map(resp => `<li>${resp}</li>`).join('')}
+            <div class="timeline-entry ${item.side}" style="top: ${yPosition}px;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-box">
+                    <div class="timeline-date-badge">${item.date}</div>
+                    <h3 class="timeline-job-title">${item.title}</h3>
+                    <h4 class="timeline-company-name">${item.company}</h4>
+                    <ul class="timeline-duties">
+                        ${item.responsibilities.map(duty => `<li>${duty}</li>`).join('')}
                     </ul>
                 </div>
             </div>
         `;
     }
 
-    addEventListeners() {
-        // Add scroll animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+    setupInteractions() {
+        // Scroll animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
+                    entry.target.classList.add('visible');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.3 });
 
-        this.container.querySelectorAll('.timeline-item').forEach(item => {
-            observer.observe(item);
+        this.container.querySelectorAll('.timeline-entry').forEach(entry => {
+            observer.observe(entry);
         });
 
-        // Add hover effects
-        this.container.querySelectorAll('.timeline-item').forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                item.classList.add('hovered');
+        // Hover effects
+        this.container.querySelectorAll('.timeline-entry').forEach(entry => {
+            entry.addEventListener('mouseenter', () => {
+                entry.classList.add('hover-active');
             });
             
-            item.addEventListener('mouseleave', () => {
-                item.classList.remove('hovered');
+            entry.addEventListener('mouseleave', () => {
+                entry.classList.remove('hover-active');
             });
         });
     }
 }
 
-// Initialize timeline when DOM is loaded
+// Initialize when page loads
 document.addEventListener('DOMContentLoaded', () => {
     new StaggeredTimeline('timeline-container');
 });
