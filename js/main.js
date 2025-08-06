@@ -164,9 +164,12 @@ function initTypingAnimation() {
     setTimeout(typeWriter, 1000);
 }
 
-// Contact form handling
+// Contact form handling with EmailJS
 function initContactForm() {
     if (!contactForm) return;
+
+    // Initialize EmailJS (you'll need to replace these with your actual IDs)
+    emailjs.init("FEvOc8s7H72S8JdZI"); // Replace with your EmailJS public key
 
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -178,25 +181,38 @@ function initContactForm() {
         submitBtn.innerHTML = '<span class="loading"></span> Sending...';
         submitBtn.disabled = true;
 
-        // Simulate form submission (replace with actual form handling)
+        // Get form data
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value
+        };
+
         try {
-            await simulateFormSubmission();
+            // Send email using EmailJS
+            await emailjs.send(
+                "service_6b8kmo9",     // Replace with your EmailJS service ID
+                "template_f4hngu9",    // Replace with your EmailJS template ID
+                {
+                    from_name: formData.name,
+                    from_email: formData.email,
+                    subject: formData.subject,
+                    message: formData.message,
+                    to_name: "Darren Freimuth"
+                }
+            );
+            
             showSuccessMessage();
             contactForm.reset();
         } catch (error) {
-            showErrorMessage('Failed to send message. Please try again.');
+            console.error('EmailJS error:', error);
+            showErrorMessage('Failed to send message. Please try again or contact me directly at darren@freimuth.com');
         } finally {
             // Reset button
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         }
-    });
-}
-
-// Simulate form submission (replace with actual implementation)
-function simulateFormSubmission() {
-    return new Promise((resolve) => {
-        setTimeout(resolve, 2000);
     });
 }
 
@@ -206,7 +222,7 @@ function showSuccessMessage() {
     if (!successMsg) {
         successMsg = document.createElement('div');
         successMsg.className = 'success-message';
-        successMsg.textContent = 'Thank you! Your message has been sent successfully.';
+        successMsg.textContent = 'Thank you! Your message has been sent successfully. I\'ll get back to you soon!';
         contactForm.appendChild(successMsg);
     }
     
