@@ -86,7 +86,7 @@ class StaggeredTimeline {
     }
 
     createTimelineItem(item, index) {
-        const offsetTop = index * 180; // Stagger each item by 180px to create the halfway overlap effect
+        const offsetTop = index * 280; // Further increased spacing: stagger each item by 280px for optimal vertical space
         
         return `
             <div class="timeline-item timeline-item-${item.position}" 
