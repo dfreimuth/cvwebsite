@@ -45,8 +45,19 @@ jobs:
     - name: Create deployment artifact
       run: |
         mkdir -p deployment
-        cp -r . deployment/
-        rm -rf deployment/.git deployment/.github deployment/node_modules
+        # Copy specific files and directories needed for deployment
+        cp index.html deployment/
+        cp -r css deployment/
+        cp -r js deployment/
+        cp -r pages deployment/
+        cp -r assets deployment/
+        cp package.json deployment/
+        cp web.config deployment/
+        # Copy any other root-level files that might be needed
+        find . -maxdepth 1 -name "*.md" -exec cp {} deployment/ \;
+        find . -maxdepth 1 -name "*.json" ! -name "package*.json" -exec cp {} deployment/ \;
+        # Exclude unnecessary files/directories
+        echo "Deployment artifact created successfully"
         
     - name: Upload deployment artifact
       uses: actions/upload-artifact@v4
