@@ -169,7 +169,7 @@ function initContactForm() {
     if (!contactForm) return;
 
     // Initialize EmailJS (you'll need to replace these with your actual IDs)
-    emailjs.init("FEvOc8s7H72S8JdZI"); // Replace with your EmailJS public key
+    emailjs.init('FEvOc8s7H72S8JdZI'); // Replace with your EmailJS public key
 
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -192,14 +192,14 @@ function initContactForm() {
         try {
             // Send email using EmailJS
             await emailjs.send(
-                "service_6b8kmo9",     // Replace with your EmailJS service ID
-                "template_f4hngu9",    // Replace with your EmailJS template ID
+                'service_6b8kmo9',     // Replace with your EmailJS service ID
+                'template_f4hngu9',    // Replace with your EmailJS template ID
                 {
                     from_name: formData.name,
                     from_email: formData.email,
                     subject: formData.subject,
                     message: formData.message,
-                    to_name: "Darren Freimuth"
+                    to_name: 'Darren Freimuth'
                 }
             );
             
@@ -458,6 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScrolling();
     initScrollIndicator();
     initScrollAnimations();
+    initTypingAnimation();
     initContactForm();
     initCounterAnimation();
     initScrollProgress();
