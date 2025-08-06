@@ -39,7 +39,7 @@ body {
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Light mode colors (default) */
-    --bg-primary: #ffffff;
+    --bg-primary: #fff;
     --bg-secondary: #f8fafc;
     --bg-tertiary: #f1f5f9;
     --text-color-primary: #1e293b;
@@ -48,7 +48,7 @@ body {
     --border-color-primary: #e2e8f0;
     --border-color-secondary: #cbd5e1;
     --shadow-color: rgba(0, 0, 0, 0.1);
-    --card-bg: #ffffff;
+    --card-bg: #fff;
     --navbar-bg: rgba(255, 255, 255, 0.95);
 }
 
@@ -1150,7 +1150,7 @@ section {
     color: var(--primary-color);
     opacity: 0.3;
     line-height: 1;
-    font-family: Georgia, serif;
+    font-family: "Georgia", serif;
 }
 
 .interests-quote blockquote {
